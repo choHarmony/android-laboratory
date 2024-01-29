@@ -1,11 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
 }
 
 android {
     namespace 'com.example.hilt_test'
-    compileSdk 32
+    compileSdk 34
+
+    dataBinding {
+        enabled = true
+    }
 
     defaultConfig {
         applicationId "com.example.hilt_test"
@@ -22,6 +28,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        buildFeatures {
+            viewBinding true
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -30,9 +40,15 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
+
+    // mvvm, databinding
+    implementation 'androidx.fragment:fragment-ktx:1.5.5' // viewModels()
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -41,4 +57,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    // hilt
+    implementation 'com.google.dagger:hilt-android:2.44'
+    kapt 'com.google.dagger:hilt-android-compiler:2.44'
 }
